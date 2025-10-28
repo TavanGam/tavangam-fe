@@ -19,9 +19,7 @@ export class AppComponent implements OnInit{
     ngOnInit(): void {
         this.translate.addLangs(['fa', 'en']);
         this.translate.setFallbackLang('en');
-        this.setLanguage('en');
-
-        this.translate.get('primeng').subscribe(res => this.primeng.setTranslation(res));
+        this.setLanguage('fa');
     }
 
     private applyLanguageAttributes(language: string): void {
@@ -39,8 +37,9 @@ export class AppComponent implements OnInit{
         }
     
         this.currentLang = language;
-    
+
         this.translate.use(language).subscribe(() => {
+          this.translate.get('primeng').subscribe(res => this.primeng.setTranslation(res));
           this.applyLanguageAttributes(language);
         });
     

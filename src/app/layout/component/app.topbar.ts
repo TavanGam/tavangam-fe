@@ -115,9 +115,10 @@ export class AppTopbar {
         this.currentLang = language;
     
         this.translate.use(language).subscribe(() => {
-          this.applyLanguageAttributes(language);
-        });
-    
+            this.translate.get('primeng').subscribe(res => this.primeng.setTranslation(res));
+            this.applyLanguageAttributes(language);
+          });
+      
         this.applyLanguageAttributes(language);
       }
 
