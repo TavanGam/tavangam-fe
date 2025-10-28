@@ -1,151 +1,157 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-menu',
     standalone: true,
-    imports: [CommonModule, AppMenuitem, RouterModule],
+    imports: [CommonModule, AppMenuitem, RouterModule, TranslateModule],
     template: `<ul class="layout-menu">
-        <ng-container *ngFor="let item of model; let i = index">
-            <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-            <li *ngIf="item.separator" class="menu-separator"></li>
-        </ng-container>
+            @for (item of model; track $index) {
+                @if (!item.separator) {
+                    <li app-menuitem [item]="item" [index]="$index" [root]="true"></li>
+                } @else {
+                    <li class="menu-separator"></li>
+                }
+            }
     </ul> `
 })
+
 export class AppMenu {
     model: MenuItem[] = [];
+    private translate = inject(TranslateService);
 
     ngOnInit() {
         this.model = [
             {
-                label: 'Home',
-                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+                label: 'navigation.home',
+                items: [{ label: 'navigation.dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
             {
-                label: 'UI Components',
+                label: 'navigation.uiComponents',
                 items: [
-                    { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
-                    { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                    { label: 'Button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
-                    { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
-                    { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                    { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
-                    { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                    { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                    { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                    { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
-                    { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                    { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                    { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                    { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
-                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                    { label: 'navigation.formLayout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
+                    { label: 'navigation.input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
+                    { label: 'navigation.button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
+                    { label: 'navigation.table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
+                    { label: 'navigation.list', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
+                    { label: 'navigation.tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
+                    { label: 'navigation.panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
+                    { label: 'navigation.overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
+                    { label: 'navigation.media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
+                    { label: 'navigation.menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
+                    { label: 'navigation.message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
+                    { label: 'navigation.file', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
+                    { label: 'navigation.chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
+                    { label: 'navigation.timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
+                    { label: 'navigation.misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
                 ]
             },
             {
-                label: 'Pages',
+                label: 'navigation.pages',
                 icon: 'pi pi-fw pi-briefcase',
                 routerLink: ['/pages'],
                 items: [
                     {
-                        label: 'Landing',
+                        label: 'navigation.landing',
                         icon: 'pi pi-fw pi-globe',
                         routerLink: ['/landing']
                     },
                     {
-                        label: 'Auth',
+                        label: 'navigation.auth',
                         icon: 'pi pi-fw pi-user',
                         items: [
                             {
-                                label: 'Login',
+                                label: 'auth.login',
                                 icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/auth/login']
                             },
                             {
-                                label: 'Error',
+                                label: 'navigation.error',
                                 icon: 'pi pi-fw pi-times-circle',
                                 routerLink: ['/auth/error']
                             },
                             {
-                                label: 'Access Denied',
+                                label: 'navigation.accessDenied',
                                 icon: 'pi pi-fw pi-lock',
                                 routerLink: ['/auth/access']
                             }
                         ]
                     },
                     {
-                        label: 'Crud',
+                        label: 'navigation.crud',
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/pages/crud']
                     },
                     {
-                        label: 'Not Found',
+                        label: 'navigation.notFound',
                         icon: 'pi pi-fw pi-exclamation-circle',
                         routerLink: ['/pages/notfound']
                     },
                     {
-                        label: 'Empty',
+                        label: 'navigation.empty',
                         icon: 'pi pi-fw pi-circle-off',
                         routerLink: ['/pages/empty']
                     }
                 ]
             },
             {
-                label: 'Hierarchy',
+                label: 'navigation.hierarchy',
                 items: [
                     {
-                        label: 'Submenu 1',
+                        label: 'navigation.submenu1',
                         icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {
-                                label: 'Submenu 1.1',
+                                label: 'navigation.submenu1_1',
                                 icon: 'pi pi-fw pi-bookmark',
                                 items: [
-                                    { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' }
+                                    { label: 'navigation.submenu1_1_1', icon: 'pi pi-fw pi-bookmark' },
+                                    { label: 'navigation.submenu1_1_2', icon: 'pi pi-fw pi-bookmark' },
+                                    { label: 'navigation.submenu1_1_3', icon: 'pi pi-fw pi-bookmark' }
                                 ]
                             },
                             {
-                                label: 'Submenu 1.2',
+                                label: 'navigation.submenu1_2',
                                 icon: 'pi pi-fw pi-bookmark',
-                                items: [{ label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
+                                items: [{ label: 'navigation.submenu1_2_1', icon: 'pi pi-fw pi-bookmark' }]
                             }
                         ]
                     },
                     {
-                        label: 'Submenu 2',
+                        label: 'navigation.submenu2',
                         icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {
-                                label: 'Submenu 2.1',
+                                label: 'navigation.submenu2_1',
                                 icon: 'pi pi-fw pi-bookmark',
                                 items: [
-                                    { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' }
+                                    { label: 'navigation.submenu2_1_1', icon: 'pi pi-fw pi-bookmark' },
+                                    { label: 'navigation.submenu2_1_2', icon: 'pi pi-fw pi-bookmark' }
                                 ]
                             },
                             {
-                                label: 'Submenu 2.2',
+                                label: 'navigation.submenu2_2',
                                 icon: 'pi pi-fw pi-bookmark',
-                                items: [{ label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' }]
+                                items: [{ label: 'navigation.submenu2_2_1', icon: 'pi pi-fw pi-bookmark' }]
                             }
                         ]
                     }
                 ]
             },
             {
-                label: 'Get Started',
+                label: 'navigation.getStarted',
                 items: [
                     {
-                        label: 'Documentation',
+                        label: 'navigation.documentation',
                         icon: 'pi pi-fw pi-book',
                         routerLink: ['/documentation']
                     },
                     {
-                        label: 'View Source',
+                        label: 'navigation.viewSource',
                         icon: 'pi pi-fw pi-github',
                         url: 'https://github.com/primefaces/sakai-ng',
                         target: '_blank'

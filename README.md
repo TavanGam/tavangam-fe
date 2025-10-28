@@ -1,59 +1,72 @@
-# Sakai19
+# OT-Connect — Frontend (Angular + PrimeNG)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+OT-Connect is a Farsi-first occupational therapy and telehealth platform. This repository hosts the web frontend built with Angular 20 and PrimeNG, customized from the Sakai dashboard to deliver therapist and patient portals for Iran-first deployment.
 
-## Development server
+## Vision
 
-To start a local development server, run:
+Build a world-class, Iran-hosted platform that streamlines scheduling, documentation (SOAP), telehealth, and exercise prescription for occupational therapists, with Persian-language UX and templates.
 
+## MVP Scope (Phase 1)
+
+- Therapist dashboard (Sakai-based) with Farsi RTL support
+- Patient records with SOAP notes and Farsi intake/consent forms
+- Scheduling and calendar (ICS export)
+- Notifications and SMS/email reminders (stubs in frontend)
+- Minimal in-app messaging UI
+
+## Planned Features (Next Phases)
+
+- Telehealth module (self-hosted Jitsi integration)
+- Exercise prescription library with Persian content
+- Persian STT for note drafting and summarization
+- Local PSP integration for subscriptions and invoicing
+- Analytics dashboard for appointments, adherence, outcomes
+
+## Roadmap (High-Level)
+
+- Phase 1 (0–3 months): MVP dashboard, auth, patients, SOAP, scheduling, reminders
+- Phase 2 (3–9 months): AI note assist (Persian STT), smart scheduling, payments, basic telehealth
+- Phase 3 (9–21 months): Scaled telehealth, analytics, multi-therapist clinic admin, integrations
+
+## Development
+
+### Prerequisites
+- Node.js 20+, PNPM/NPM
+
+### Install
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### Start dev server
 ```bash
-ng generate component component-name
+npm start
+```
+Open `http://localhost:4200/`.
+
+### Build
+```bash
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Theming and Layout
+- PrimeNG + `@primeuix/themes`
+- Global styles in `src/assets/layout` and `src/assets/styles.scss`
 
-```bash
-ng generate --help
-```
+## Project Structure
+- `src/app/pages` — feature pages (dashboard, auth, uikit demos)
+- `src/app/layout` — layout components (topbar, sidebar, menu)
+- `src/app/pages/service` — demo data services (to be replaced by real API)
 
-## Building
+## Docs and Planning
+Business, localization, and roadmap materials live in `docs/`:
+- `docs/competitive_analysis.md`
+- `docs/iran_strategy.md`
+- `docs/mvp_roadmap.md`
+- `docs/investor_pitch_outline.md`
+- `docs/questions.md`
 
-To build the project run:
+These inform frontend prioritization and copy (Farsi UX, templates, telehealth choices). Future README updates will link API specs and deployment guides.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+MIT © Rasoul Veisi

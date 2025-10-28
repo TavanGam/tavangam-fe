@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, DOCUMENT, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, TranslateModule],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
@@ -33,7 +35,7 @@ import { LayoutService } from '../service/layout.service';
                         />
                     </g>
                 </svg>
-                <span>SAKAI</span>
+                <span>OT-Connect</span>
             </a>
         </div>
 
@@ -66,16 +68,20 @@ import { LayoutService } from '../service/layout.service';
                 <div class="layout-topbar-menu-content">
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
+                        <span>{{ 'common.calendar' | translate }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
+                        <span>{{ 'common.messages' | translate }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-user"></i>
-                        <span>Profile</span>
+                        <span>{{ 'common.profile' | translate }}</span>
                     </button>
+                    <div class="flex gap-2 items-center">
+                        <button type="button" class="layout-topbar-action" (click)="switchLanguage('fa')">FA</button>
+                        <button type="button" class="layout-topbar-action" (click)="switchLanguage('en')">EN</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,10 +89,40 @@ import { LayoutService } from '../service/layout.service';
 })
 export class AppTopbar {
     items!: MenuItem[];
+    currentLang = '';
+    private readonly document = inject(DOCUMENT);
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(public layoutService: LayoutService, private translate: TranslateService, private primeng: PrimeNG) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    private applyLanguageAttributes(language: string): void {
+        const direction = language === 'fa' ? 'rtl' : 'ltr';
+        const docElement = this.document.documentElement;
+    
+        docElement.setAttribute('lang', language);
+        docElement.setAttribute('dir', direction);
+        this.document.body.setAttribute('dir', direction);
+      }
+
+      setLanguage(language: string): void {
+        if (this.currentLang === language) {
+          return;
+        }
+    
+        this.currentLang = language;
+    
+        this.translate.use(language).subscribe(() => {
+          this.applyLanguageAttributes(language);
+        });
+    
+        this.applyLanguageAttributes(language);
+      }
+
+
+    switchLanguage(lang: 'fa' | 'en') {
+        this.setLanguage(lang);
     }
 }
