@@ -14,7 +14,7 @@ import { LayoutService } from '../service/layout.service';
     template: `<div class="layout-wrapper" [ngClass]="containerClass">
         <app-topbar></app-topbar>
         <app-sidebar></app-sidebar>
-        <div class="layout-main-container">
+        <div class="layout-main-container rtl:ml-0! rtl:mr-[22rem]">
             <div class="layout-main">
                 <router-outlet></router-outlet>
             </div>

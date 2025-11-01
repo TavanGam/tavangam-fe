@@ -1,12 +1,11 @@
-import { Component, DOCUMENT, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { PrimeNG } from 'primeng/config';
+import { TranslateModule} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-topbar',
@@ -35,11 +34,11 @@ import { PrimeNG } from 'primeng/config';
                         />
                     </g>
                 </svg>
-                <span>OT-Connect</span>
+                <span>{{'common.appName' | translate}}</span>
             </a>
         </div>
 
-        <div class="layout-topbar-actions">
+        <div class="layout-topbar-actions rtl:mr-auto rtl:ml-0!">
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
                     <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
@@ -78,10 +77,6 @@ import { PrimeNG } from 'primeng/config';
                         <i class="pi pi-user"></i>
                         <span>{{ 'common.profile' | translate }}</span>
                     </button>
-                    <div class="flex gap-2 items-center">
-                        <button type="button" class="layout-topbar-action" (click)="switchLanguage('fa')">FA</button>
-                        <button type="button" class="layout-topbar-action" (click)="switchLanguage('en')">EN</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -89,41 +84,10 @@ import { PrimeNG } from 'primeng/config';
 })
 export class AppTopbar {
     items!: MenuItem[];
-    currentLang = '';
-    private readonly document = inject(DOCUMENT);
 
-    constructor(public layoutService: LayoutService, private translate: TranslateService, private primeng: PrimeNG) {}
+    constructor(public layoutService: LayoutService) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
-    }
-
-    private applyLanguageAttributes(language: string): void {
-        const direction = language === 'fa' ? 'rtl' : 'ltr';
-        const docElement = this.document.documentElement;
-    
-        docElement.setAttribute('lang', language);
-        docElement.setAttribute('dir', direction);
-        this.document.body.setAttribute('dir', direction);
-      }
-
-      setLanguage(language: string): void {
-        if (this.currentLang === language) {
-          return;
-        }
-    
-        this.currentLang = language;
-    
-        this.translate.use(language).subscribe(() => {
-            this.translate.get('primeng').subscribe(res => this.primeng.setTranslation(res));
-            this.applyLanguageAttributes(language);
-          });
-      
-        this.applyLanguageAttributes(language);
-      }
-
-
-    switchLanguage(lang: 'fa' | 'en') {
-        this.setLanguage(lang);
     }
 }

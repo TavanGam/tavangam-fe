@@ -135,6 +135,7 @@
     }
   },
   "common": {
+    "appName": "Tavanmand",
     "calendar": "Calendar",
     "messages": "Messages",
     "dashboard": "Dashboard",
