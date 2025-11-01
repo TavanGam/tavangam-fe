@@ -1,7 +1,7 @@
 {
-  "name": "ot-connect-frontend",
+  "name": "tavangam-fe",
   "version": "20.0.0",
-  "description": "OT-Connect: Farsi-first occupational therapy telehealth dashboard (Angular + PrimeNG)",
+  "description": "TavanGam: Farsi-first occupational therapy telehealth dashboard (Angular + PrimeNG)",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,10 +13,10 @@
   "private": true,
   "author": "Rasoul Veisi",
   "license": "MIT",
-  "homepage": "https://github.com/your-org/ot-connect",
+  "homepage": "https://github.com/TavanGam/tavangam-fe",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/ot-connect.git"
+    "url": "https://github.com/TavanGam/tavangam-fe"
   },
   "dependencies": {
     "@angular/animations": "^20.3.7",

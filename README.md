@@ -1,6 +1,6 @@
-# OT-Connect — Frontend (Angular + PrimeNG)
+# TavanGam — Frontend (Angular + PrimeNG)
 
-OT-Connect is a Farsi-first occupational therapy and telehealth platform. This repository hosts the web frontend built with Angular 20 and PrimeNG, customized from the Sakai dashboard to deliver therapist and patient portals for Iran-first deployment.
+TavanGam is a Farsi-first occupational therapy and telehealth platform. This repository hosts the web frontend built with Angular 20 and PrimeNG, customized from the Sakai dashboard to deliver therapist and patient portals for Iran-first deployment.
 
 ## Vision
 

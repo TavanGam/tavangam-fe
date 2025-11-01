@@ -135,7 +135,7 @@
     }
   },
   "common": {
-    "appName": "Tavanmand",
+    "appName": "🌱 TavanGam",
     "calendar": "Calendar",
     "messages": "Messages",
     "dashboard": "Dashboard",
@@ -320,7 +320,7 @@
     "logout": "Logout"
   },
   "messages": {
-    "welcome": "Welcome to OT-Connect",
+    "welcome": "Welcome to {appName}",
     "loginSuccess": "Login successful",
     "loginError": "Login error",
     "saveSuccess": "Save successful",

@@ -195,7 +195,7 @@
         }
     },
     "common": {
-        "appName": "تاوانمند",
+        "appName": "🌱 تاوان‌گام",
         "calendar": "تقویم",
         "messages": "پیام‌ها",
         "dashboard": "داشبورد",
@@ -380,7 +380,7 @@
         "logout": "خروج"
     },
     "messages": {
-        "welcome": "به OT-Connect خوش آمدید",
+        "welcome": "به {appName} خوش آمدید",
         "loginSuccess": "ورود موفقیت‌آمیز",
         "loginError": "خطا در ورود",
         "saveSuccess": "ذخیره موفقیت‌آمیز",
