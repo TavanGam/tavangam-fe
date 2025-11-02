@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 import { TranslateModule} from '@ngx-translate/core';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-topbar',
@@ -73,9 +74,9 @@ import { TranslateModule} from '@ngx-translate/core';
                         <i class="pi pi-inbox"></i>
                         <span>{{ 'common.messages' | translate }}</span>
                     </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-user"></i>
-                        <span>{{ 'common.profile' | translate }}</span>
+                    <button type="button" class="layout-topbar-action" (click)="logout()">
+                        <i class="pi pi-sign-out"></i>
+                        <span>{{ 'common.logout' | translate }}</span>
                     </button>
                 </div>
             </div>
@@ -85,9 +86,16 @@ import { TranslateModule} from '@ngx-translate/core';
 export class AppTopbar {
     items!: MenuItem[];
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+        public layoutService: LayoutService,
+        private authService: AuthService
+    ) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    logout() {
+        this.authService.logout();
     }
 }

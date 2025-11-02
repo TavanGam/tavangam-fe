@@ -1,17 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
+import { MessageModule } from 'primeng/message';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
+import { AuthService } from '../../shared/services/auth.service';
+import { Credentials } from '../../shared/interfaces/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator],
+    imports: [
+        ButtonModule,
+        CheckboxModule,
+        InputTextModule,
+        PasswordModule,
+        FormsModule,
+        RouterModule,
+        RippleModule,
+        AppFloatingConfigurator,
+        MessageModule,
+        ProgressSpinnerModule,
+        CommonModule
+    ],
     template: `
         <app-floating-configurator />
         <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
@@ -36,16 +53,20 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
                                     />
                                 </g>
                             </svg>
-                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to PrimeLand!</div>
+                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to TavanGam!</div>
                             <span class="text-muted-color font-medium">Sign in to continue</span>
                         </div>
 
                         <div>
                             <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
-                            <input pInputText id="email1" type="text" placeholder="Email address" class="w-full md:w-120 mb-8" [(ngModel)]="email" />
+                            <input pInputText id="email1" type="text" placeholder="Email address" class="w-full md:w-120 mb-4" [(ngModel)]="email" />
 
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
                             <p-password id="password1" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
+
+                            @if (errorMessage) {
+                                <p-message severity="error" [text]="errorMessage" class="mb-4"></p-message>
+                            }
 
                             <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                                 <div class="flex items-center">
@@ -54,7 +75,13 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
                                 </div>
                                 <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Forgot password?</span>
                             </div>
-                            <p-button label="Sign In" styleClass="w-full" routerLink="/"></p-button>
+
+                            <p-button
+                                label="Sign In"
+                                styleClass="w-full"
+                                (onClick)="onLogin()"
+                                [disabled]="!email || !password">
+                            </p-button>
                         </div>
                     </div>
                 </div>
@@ -62,10 +89,48 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
         </div>
     `
 })
-export class Login {
+export class Login implements OnInit {
     email: string = '';
-
     password: string = '';
-
     checked: boolean = false;
+
+    errorMessage: string = '';
+
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {}
+
+
+    ngOnInit(): void {
+        // TODO: use signal for isLoggedIn and check effect if value change
+        if (this.authService.isLoggedIn) {
+            this.router.navigate(['/']);
+        }
+    }
+
+    onLogin(): void {
+        this.authService.login();
+        // if (!this.email || !this.password) {
+        //     this.errorMessage = 'Please enter both email and password';
+        //     return;
+        // }
+
+        // this.errorMessage = '';
+
+        // const credentials: Credentials = {
+        //     email: this.email,
+        //     password: this.password
+        // };
+
+        // this.authService.login(credentials).subscribe({
+        //     next: () => {
+        //         this.router.navigate(['/']);
+        //     },
+        //     error: (error) => {
+        //         console.error('Login error:', error);
+        //         this.errorMessage = 'Invalid email or password. Please try again.';
+        //     }
+        // });
+    }
 }
