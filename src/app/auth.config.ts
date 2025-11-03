@@ -2,14 +2,14 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'http://localhost:55136/realms/templateapp',
+  issuer: 'https://lemur-14.cloud-iam.com/auth/realms/tavangam',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/auth/login',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   // clientId: 'server.code',
-  clientId: 'my-angular-app',
+  clientId: 'angular',
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
